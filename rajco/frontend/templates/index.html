@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raj & Co — India's Home Decor & Hardware Marketplace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/main.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="#" class="logo" onclick="showPage('home')">
+      <span class="logo-raj">Raj</span><span class="logo-and">&</span><span class="logo-co">Co</span>
+      <small>Localize Wise™</small>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#" onclick="showPage('home')" class="nav-link active">Home</a>
+      <a href="#" onclick="showCategory('hardware')" class="nav-link">Hardware</a>
+      <a href="#" onclick="showCategory('tiles')" class="nav-link">Tiles & Marble</a>
+      <a href="#" onclick="showCategory('painter')" class="nav-link">Painters</a>
+      <a href="#" onclick="showCategory('decor')" class="nav-link">Home Decor</a>
+      <a href="#" onclick="showPage('localize')" class="nav-link nav-localize"><i class="fa fa-location-dot"></i> LocalizeWise</a>
+    </div>
+    <div class="nav-actions">
+      <button class="btn-search" onclick="toggleSearch()"><i class="fa fa-search"></i></button>
+      <div id="authBtns">
+        <button class="btn-login" onclick="showPage('login')">Login / Register</button>
+      </div>
+      <div id="userMenu" style="display:none">
+        <button class="btn-user" onclick="toggleUserDropdown()">
+          <i class="fa fa-user-circle"></i> <span id="userName">User</span>
+        </button>
+        <div class="user-dropdown" id="userDropdown">
+          <a href="#" onclick="showPage('deals')"><i class="fa fa-handshake"></i> My Deals</a>
+          <a href="#" onclick="showPage('dashboard')"><i class="fa fa-gauge"></i> Dashboard</a>
+          <a href="#" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</a>
+        </div>
+      </div>
+      <button class="hamburger" onclick="toggleMobileMenu()"><i class="fa fa-bars"></i></button>
+    </div>
+  </div>
+  <div class="search-bar" id="searchBar">
+    <input type="text" id="searchInput" placeholder="Search vendors, products, cities..." oninput="handleSearch(this.value)">
+    <div class="search-results" id="searchResults"></div>
+  </div>
+</nav>
+
+<!-- ============ HOME PAGE ============ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-gradient"></div>
+      <div class="hero-pattern"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge"><span class="badge-dot"></span>India's Trusted Home Marketplace</div>
+      <h1 class="hero-title">
+        Build Your<br>
+        <em>Dream Home</em><br>
+        <span class="hero-title-accent">With Raj & Co</span>
+      </h1>
+      <p class="hero-subtitle">Connect with verified local vendors for Hardware, Tiles, Painting, and Home Decor. Powered by <strong>LocalizeWise™</strong> technology — find experts within 5KM of you.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="showPage('localize')">
+          <i class="fa fa-location-dot"></i> Find Local Vendors
+        </button>
+        <button class="btn-secondary" onclick="scrollToCategories()">
+          Explore Categories <i class="fa fa-arrow-right"></i>
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><strong>500+</strong><span>Verified Vendors</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><strong>50+</strong><span>Cities Covered</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><strong>10K+</strong><span>Deals Closed</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card card-1">
+        <div class="hcard-icon"><i class="fa fa-lock"></i></div>
+        <div><strong>Premium Locks</strong><p>From ₹800/pc</p></div>
+      </div>
+      <div class="hero-card card-2">
+        <div class="hcard-icon"><i class="fa fa-layer-group"></i></div>
+        <div><strong>Italian Marble</strong><p>From ₹180/sqft</p></div>
+      </div>
+      <div class="hero-card card-3">
+        <div class="hcard-icon"><i class="fa fa-paint-roller"></i></div>
+        <div><strong>Expert Painters</strong><p>From ₹12/sqft</p></div>
+      </div>
+      <div class="hero-card card-4">
+        <div class="hcard-icon"><i class="fa fa-couch"></i></div>
+        <div><strong>Custom Curtains</strong><p>From ₹300/m</p></div>
+      </div>
+      <div class="hero-center-badge">
+        <i class="fa fa-map-location-dot"></i>
+        <span>LocalizeWise™</span>
+        <small>5KM Radius</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCALIZE WISE BANNER -->
+  <section class="localize-banner">
+    <div class="container">
+      <div class="lb-left">
+        <i class="fa fa-location-crosshairs lb-icon"></i>
+        <div>
+          <h3>LocalizeWise™ Technology</h3>
+          <p>We detect your location and show only vendors within your city or 5KM radius — no more contacting vendors from another state!</p>
+        </div>
+      </div>
+      <button class="btn-white" onclick="activateLocalize()">
+        <i class="fa fa-crosshairs"></i> Enable My Location
+      </button>
+    </div>
+  </section>
+
+  <!-- CATEGORIES SECTION -->
+  <section class="categories-section" id="categoriesSection">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">What We Offer</span>
+        <h2>Explore Our Categories</h2>
+        <p>Four major categories covering all your home needs — from security hardware to elegant decor</p>
+      </div>
+      <div class="categories-grid">
+
+        <!-- HARDWARE CARD -->
+        <div class="cat-card" onclick="showCategory('hardware')">
+          <div class="cat-image cat-hardware">
+            <div class="cat-overlay"></div>
+            <div class="cat-icon"><i class="fa fa-screwdriver-wrench"></i></div>
+            <div class="cat-badge">85+ Vendors</div>
+          </div>
+          <div class="cat-body">
+            <h3>Hardware</h3>
+            <p>Locks, curtain bars, door handles, knobs, hinges & more</p>
+            <div class="cat-tags">
+              <span>Locks</span><span>Curtain Rods</span><span>Door Handles</span><span>Knobs</span>
+            </div>
+            <div class="cat-footer">
+              <span class="cat-price">From ₹200</span>
+              <button class="cat-btn">Explore <i class="fa fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- TILES CARD -->
+        <div class="cat-card" onclick="showCategory('tiles')">
+          <div class="cat-image cat-tiles">
+            <div class="cat-overlay"></div>
+            <div class="cat-icon"><i class="fa fa-th"></i></div>
+            <div class="cat-badge">120+ Vendors</div>
+          </div>
+          <div class="cat-body">
+            <h3>Tiles & Marble</h3>
+            <p>Granite, vitrified tiles, Italian marble, designer wall tiles</p>
+            <div class="cat-tags">
+              <span>Marble</span><span>Granite</span><span>Vitrified</span><span>Designer</span>
+            </div>
+            <div class="cat-footer">
+              <span class="cat-price">From ₹45/sqft</span>
+              <button class="cat-btn">Explore <i class="fa fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAINTER CARD -->
+        <div class="cat-card" onclick="showCategory('painter')">
+          <div class="cat-image cat-painter">
+            <div class="cat-overlay"></div>
+            <div class="cat-icon"><i class="fa fa-paint-roller"></i></div>
+            <div class="cat-badge">200+ Vendors</div>
+          </div>
+          <div class="cat-body">
+            <h3>Painters</h3>
+            <p>Interior, exterior, texture painting, waterproofing & wall art</p>
+            <div class="cat-tags">
+              <span>Interior</span><span>Texture</span><span>Exterior</span><span>Waterproof</span>
+            </div>
+            <div class="cat-footer">
+              <span class="cat-price">From ₹12/sqft</span>
+              <button class="cat-btn">Explore <i class="fa fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DECOR CARD -->
+        <div class="cat-card" onclick="showCategory('decor')">
+          <div class="cat-image cat-decor">
+            <div class="cat-overlay"></div>
+            <div class="cat-icon"><i class="fa fa-couch"></i></div>
+            <div class="cat-badge">150+ Vendors</div>
+          </div>
+          <div class="cat-body">
+            <h3>Home Decor</h3>
+            <p>Curtains, carpets, bedsheets & personalized decor design</p>
+            <div class="cat-tags">
+              <span>Curtains</span><span>Carpets</span><span>Bedsheets</span><span>Custom</span>
+            </div>
+            <div class="cat-footer">
+              <span class="cat-price">From ₹300</span>
+              <button class="cat-btn">Explore <i class="fa fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- BESTSELLERS SECTION -->
+  <section class="bestsellers-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">🔥 Trending Now</span>
+        <h2>Best-Selling Products</h2>
+        <p>Most popular items ordered by customers across India</p>
+      </div>
+      <div class="bestsellers-grid" id="bestsellerGrid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Simple Process</span>
+        <h2>How Raj & Co Works</h2>
+      </div>
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-icon"><i class="fa fa-location-dot"></i></div>
+          <h4>Enable Location</h4>
+          <p>Allow location access or enter your city. LocalizeWise™ finds vendors within 5KM.</p>
+        </div>
+        <div class="step-arrow"><i class="fa fa-arrow-right"></i></div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-icon"><i class="fa fa-magnifying-glass"></i></div>
+          <h4>Browse Vendors</h4>
+          <p>Explore verified vendors, view catalogs, pricing, ratings and reviews.</p>
+        </div>
+        <div class="step-arrow"><i class="fa fa-arrow-right"></i></div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-icon"><i class="fa fa-comments"></i></div>
+          <h4>Chat & Negotiate</h4>
+          <p>Connect directly with vendors, discuss requirements, and negotiate pricing.</p>
+        </div>
+        <div class="step-arrow"><i class="fa fa-arrow-right"></i></div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-icon"><i class="fa fa-handshake"></i></div>
+          <h4>Close the Deal</h4>
+          <p>Agree on terms, confirm the deal, and track project progress in your dashboard.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Customer Stories</span>
+        <h2>Trusted by Thousands</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Found an excellent marble vendor 3KM from my home in Pune. The LocalizeWise feature is genius — saved so much time and logistics cost!"</p>
+          <div class="t-author"><div class="t-avatar">RK</div><div><strong>Rahul Kulkarni</strong><span>Homeowner, Pune</span></div></div>
+        </div>
+        <div class="testimonial-card featured">
+          <div class="stars">★★★★★</div>
+          <p>"As a hardware vendor in Mumbai, Raj & Co brought me 15+ new clients in just 2 months. The deal tracking system makes everything smooth and professional."</p>
+          <div class="t-author"><div class="t-avatar">AS</div><div><strong>Amit Sharma</strong><span>Hardware Vendor, Mumbai</span></div></div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★☆</div>
+          <p>"The curtain vendor I found on Raj & Co created stunning custom drapes for my entire home. Negotiated the deal right through the chat — so convenient!"</p>
+          <div class="t-author"><div class="t-avatar">PM</div><div><strong>Priya Mehta</strong><span>Interior Designer, Delhi</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo"><span class="logo-raj">Raj</span><span class="logo-and">&</span><span class="logo-co">Co</span></div>
+          <p>India's most trusted home construction and decor marketplace. Connecting customers with verified local vendors since 2020.</p>
+          <div class="social-links">
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="#"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h5>Categories</h5>
+          <a href="#" onclick="showCategory('hardware')">Hardware</a>
+          <a href="#" onclick="showCategory('tiles')">Tiles & Marble</a>
+          <a href="#" onclick="showCategory('painter')">Painters</a>
+          <a href="#" onclick="showCategory('decor')">Home Decor</a>
+        </div>
+        <div class="footer-links">
+          <h5>Quick Links</h5>
+          <a href="#" onclick="showPage('localize')">LocalizeWise™</a>
+          <a href="#" onclick="showPage('login')">Register as Vendor</a>
+          <a href="#">Catalog Downloads</a>
+          <a href="#">Contact Us</a>
+        </div>
+        <div class="footer-contact">
+          <h5>Contact</h5>
+          <p><i class="fa fa-phone"></i> +91 98765 00000</p>
+          <p><i class="fa fa-envelope"></i> support@rajandco.in</p>
+          <p><i class="fa fa-location-dot"></i> Mumbai, Maharashtra</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 Raj & Co. All Rights Reserved. | LocalizeWise™ is a trademark of Raj & Co.</p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ============ CATEGORY PAGE ============ -->
+<div id="page-category" class="page">
+  <div class="cat-hero" id="catHero">
+    <div class="container">
+      <button class="btn-back" onclick="showPage('home')"><i class="fa fa-arrow-left"></i> Back</button>
+      <div class="cat-hero-content">
+        <div class="cat-hero-icon" id="catHeroIcon"></div>
+        <div>
+          <h1 id="catHeroTitle"></h1>
+          <p id="catHeroDesc"></p>
+        </div>
+      </div>
+      <div class="cat-tabs" id="catTabs"></div>
+    </div>
+  </div>
+
+  <div class="container cat-page-content">
+    <!-- SUB-CATEGORY FILTERS -->
+    <div class="filter-bar">
+      <div class="filter-left">
+        <span id="vendorCount">Loading...</span>
+      </div>
+      <div class="filter-right">
+        <select onchange="filterVendors(this.value)" id="sortSelect">
+          <option value="rating">Sort by Rating</option>
+          <option value="distance">Sort by Distance</option>
+          <option value="experience">Sort by Experience</option>
+        </select>
+        <button class="btn-localize-small" onclick="activateLocalize()">
+          <i class="fa fa-location-dot"></i> Near Me
+        </button>
+      </div>
+    </div>
+
+    <div class="cat-page-grid">
+      <!-- VENDORS PANEL -->
+      <div class="vendors-panel">
+        <div class="section-header-sm">
+          <h3>Vendors</h3>
+          <div class="subcategory-pills" id="subcatPills"></div>
+        </div>
+        <div class="vendors-list" id="vendorsList"></div>
+      </div>
+
+      <!-- PRODUCTS PANEL -->
+      <div class="products-panel">
+        <div class="section-header-sm">
+          <h3>Products & Catalog</h3>
+        </div>
+        <div class="bestsellers-toggle">
+          <button class="toggle-btn active" onclick="toggleProductView('all', this)">All Products</button>
+          <button class="toggle-btn" onclick="toggleProductView('bestseller', this)">🔥 Best Sellers</button>
+          <button class="toggle-btn" onclick="toggleProductView('catalog', this)">📋 Catalog</button>
+        </div>
+        <div class="products-grid-small" id="productsList"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ VENDOR DETAIL PAGE ============ -->
+<div id="page-vendor" class="page">
+  <div class="container" style="padding-top:100px">
+    <button class="btn-back" onclick="goBackFromVendor()"><i class="fa fa-arrow-left"></i> Back</button>
+    <div class="vendor-detail" id="vendorDetail"></div>
+  </div>
+</div>
+
+<!-- ============ LOCALIZEWISE PAGE ============ -->
+<div id="page-localize" class="page">
+  <div class="localize-page">
+    <div class="container">
+      <button class="btn-back" onclick="showPage('home')" style="margin-bottom:20px"><i class="fa fa-arrow-left"></i> Back</button>
+      <div class="section-header">
+        <span class="section-tag"><i class="fa fa-location-dot"></i> Powered Feature</span>
+        <h2>LocalizeWise™</h2>
+        <p>Find vendors available in your exact location — within 5KM radius across all of India</p>
+      </div>
+
+      <div class="localize-controls">
+        <div class="localize-input-group">
+          <i class="fa fa-location-crosshairs"></i>
+          <input type="text" id="localizeCity" placeholder="Enter your city or use GPS location" />
+          <button onclick="searchByCity()">Search</button>
+        </div>
+        <div class="localize-or">— or —</div>
+        <button class="btn-gps" onclick="getGPSLocation()">
+          <i class="fa fa-satellite-dish"></i> Use My GPS Location
+        </button>
+
+        <div class="localize-category-filter">
+          <button class="lc-btn active" onclick="localizeFilter('all', this)">All</button>
+          <button class="lc-btn" onclick="localizeFilter('hardware', this)"><i class="fa fa-screwdriver-wrench"></i> Hardware</button>
+          <button class="lc-btn" onclick="localizeFilter('tiles', this)"><i class="fa fa-th"></i> Tiles</button>
+          <button class="lc-btn" onclick="localizeFilter('painter', this)"><i class="fa fa-paint-roller"></i> Painters</button>
+          <button class="lc-btn" onclick="localizeFilter('decor', this)"><i class="fa fa-couch"></i> Decor</button>
+        </div>
+      </div>
+
+      <div class="localize-radius-control">
+        <label>Search Radius: <strong id="radiusLabel">5 KM</strong></label>
+        <input type="range" min="1" max="50" value="5" id="radiusSlider" oninput="updateRadius(this.value)">
+      </div>
+
+      <div id="localizeResults" class="localize-results"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ LOGIN PAGE ============ -->
+<div id="page-login" class="page">
+  <div class="auth-page">
+
+    <!-- LEFT PANEL -->
+    <div class="auth-left">
+      <div class="auth-brand">
+        <div class="logo"><span class="logo-raj">Raj</span><span class="logo-and">&</span><span class="logo-co">Co</span></div>
+        <h2>Welcome to India's Home Marketplace</h2>
+        <p>Join thousands of customers and vendors building better homes — and better businesses — together.</p>
+        <div class="auth-features">
+          <div><i class="fa fa-check-circle"></i> OTP-verified secure login via Email</div>
+          <div><i class="fa fa-check-circle"></i> Connect with verified local vendors</div>
+          <div><i class="fa fa-check-circle"></i> Chat, negotiate &amp; close deals</div>
+          <div><i class="fa fa-check-circle"></i> Vendors get business leads &amp; contracts</div>
+          <div><i class="fa fa-check-circle"></i> LocalizeWise™ — 5KM radius matching</div>
+        </div>
+
+        <!-- USER TYPE SELECTOR (shown on left) -->
+        <div class="auth-type-selector">
+          <button class="auth-type-btn active" id="leftTypeCustomer" onclick="switchUserType('customer')">
+            <i class="fa fa-user"></i>
+            <span>I'm a Customer</span>
+            <small>Looking for vendors</small>
+          </button>
+          <button class="auth-type-btn" id="leftTypeVendor" onclick="switchUserType('vendor')">
+            <i class="fa fa-store"></i>
+            <span>I'm a Vendor</span>
+            <small>List my business</small>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="auth-right">
+      <div class="auth-card" id="authCard">
+
+        <!-- ── USER TYPE TOP TABS ── -->
+        <div class="auth-type-tabs">
+          <button class="auth-type-tab active" id="tabCustomer" onclick="switchUserType('customer')">
+            <i class="fa fa-user"></i> Customer
+          </button>
+          <button class="auth-type-tab" id="tabVendor" onclick="switchUserType('vendor')">
+            <i class="fa fa-store"></i> Vendor
+          </button>
+        </div>
+
+        <!-- ── ACTION TABS (Login / Register) ── -->
+        <div class="auth-tabs" id="authActionTabs">
+          <button class="auth-tab active" id="actionLogin" onclick="switchAuthTab('login')">Login</button>
+          <button class="auth-tab" id="actionRegister" onclick="switchAuthTab('register')">Register</button>
+        </div>
+
+        <!-- ═══════════════════════════════════
+             CUSTOMER LOGIN
+        ════════════════════════════════════ -->
+        <div id="form-customer-login">
+          <div class="form-section-title"><i class="fa fa-user"></i> Customer Login</div>
+
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="cLoginName" placeholder="Rajesh Kumar">
+          </div>
+          <div class="form-group">
+            <label>Phone Number *</label>
+            <div class="phone-input">
+              <span>+91</span>
+              <input type="tel" id="cLoginPhone" placeholder="9876543210" maxlength="10">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email Address * <small style="color:#999;font-weight:400">(OTP will be sent here)</small></label>
+            <input type="email" id="cLoginEmail" placeholder="your@email.com">
+          </div>
+
+          <button class="btn-otp" onclick="sendOTP('customer','login')">
+            <i class="fa fa-paper-plane"></i> Send OTP to Email
+          </button>
+
+          <div id="cLoginOTPBox" class="otp-box" style="display:none">
+            <div class="form-group">
+              <label>Enter 6-digit OTP <small style="color:#888">— check your inbox</small></label>
+              <div class="otp-inputs" id="cLoginOTPInputs">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,0,'cLoginOTPInputs')">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,1,'cLoginOTPInputs')">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,2,'cLoginOTPInputs')">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,3,'cLoginOTPInputs')">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,4,'cLoginOTPInputs')">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,5,'cLoginOTPInputs')">
+              </div>
+            </div>
+            <button class="btn-primary w-full" onclick="verifyAndLogin('customer','login')">
+              <i class="fa fa-right-to-bracket"></i> Verify &amp; Login
+            </button>
+          </div>
+
+          <p class="auth-switch-hint">New customer? <a href="#" onclick="switchAuthTab('register')">Register here</a></p>
+        </div>
+
+        <!-- ═══════════════════════════════════
+             CUSTOMER REGISTER
+        ════════════════════════════════════ -->
+        <div id="form-customer-register" style="display:none">
+          <div class="form-section-title"><i class="fa fa-user-plus"></i> Customer Registration</div>
+
+          <div class="form-grid">
+            <div class="form-group span-2">
+              <label>Full Name *</label>
+              <input type="text" id="cRegName" placeholder="Rajesh Kumar">
+            </div>
+            <div class="form-group span-2">
+              <label>Phone Number *</label>
+              <div class="phone-input">
+                <span>+91</span>
+                <input type="tel" id="cRegPhone" placeholder="9876543210" maxlength="10">
+              </div>
+            </div>
+            <div class="form-group span-2">
+              <label>Email Address * <small style="color:#999;font-weight:400">(OTP will be sent here)</small></label>
+              <input type="email" id="cRegEmail" placeholder="your@email.com">
+            </div>
+            <div class="form-group span-2">
+              <label>Address *</label>
+              <input type="text" id="cRegAddress" placeholder="Street, Area, Landmark">
+            </div>
+            <div class="form-group">
+              <label>City *</label>
+              <input type="text" id="cRegCity" placeholder="Mumbai" list="citySuggestionsC">
+              <datalist id="citySuggestionsC">
+                <option value="Mumbai"><option value="Delhi"><option value="Bangalore">
+                <option value="Pune"><option value="Chennai"><option value="Hyderabad">
+                <option value="Ahmedabad"><option value="Kolkata"><option value="Nagpur">
+                <option value="Jaipur"><option value="Surat"><option value="Lucknow">
+              </datalist>
+            </div>
+            <div class="form-group">
+              <label>State *</label>
+              <input type="text" id="cRegState" placeholder="Maharashtra">
+            </div>
+            <div class="form-group">
+              <label>Pin Code *</label>
+              <input type="text" id="cRegPin" placeholder="400001" maxlength="6">
+            </div>
+          </div>
+
+          <button class="btn-otp" onclick="sendOTP('customer','register')">
+            <i class="fa fa-paper-plane"></i> Send OTP to Email
+          </button>
+
+          <div id="cRegOTPBox" class="otp-box" style="display:none">
+            <div class="form-group">
+              <label>Enter 6-digit OTP sent to your email</label>
+              <div class="otp-inputs" id="cRegOTPInputs">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,0,'cRegOTPInputs')">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,1,'cRegOTPInputs')">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,2,'cRegOTPInputs')">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,3,'cRegOTPInputs')">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,4,'cRegOTPInputs')">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,5,'cRegOTPInputs')">
+              </div>
+            </div>
+            <button class="btn-primary w-full" onclick="verifyAndLogin('customer','register')">
+              <i class="fa fa-user-check"></i> Verify &amp; Create Account
+            </button>
+          </div>
+
+          <p class="auth-switch-hint">Already a customer? <a href="#" onclick="switchAuthTab('login')">Login here</a></p>
+        </div>
+
+        <!-- ═══════════════════════════════════
+             VENDOR LOGIN
+        ════════════════════════════════════ -->
+        <div id="form-vendor-login" style="display:none">
+          <div class="form-section-title vendor-title"><i class="fa fa-store"></i> Vendor Login</div>
+
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="vLoginName" placeholder="Ramesh Sharma">
+          </div>
+          <div class="form-group">
+            <label>Shop / Business Name *</label>
+            <input type="text" id="vLoginShop" placeholder="Sharma Hardware &amp; Locks">
+          </div>
+          <div class="form-group">
+            <label>Phone Number *</label>
+            <div class="phone-input">
+              <span>+91</span>
+              <input type="tel" id="vLoginPhone" placeholder="9876543210" maxlength="10">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email Address * <small style="color:#999;font-weight:400">(OTP will be sent here)</small></label>
+            <input type="email" id="vLoginEmail" placeholder="shop@email.com">
+          </div>
+
+          <button class="btn-otp vendor-otp-btn" onclick="sendOTP('vendor','login')">
+            <i class="fa fa-paper-plane"></i> Send OTP to Email
+          </button>
+
+          <div id="vLoginOTPBox" class="otp-box" style="display:none">
+            <div class="form-group">
+              <label>Enter 6-digit OTP <small style="color:#888">— check your inbox</small></label>
+              <div class="otp-inputs" id="vLoginOTPInputs">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,0,'vLoginOTPInputs')">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,1,'vLoginOTPInputs')">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,2,'vLoginOTPInputs')">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,3,'vLoginOTPInputs')">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,4,'vLoginOTPInputs')">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,5,'vLoginOTPInputs')">
+              </div>
+            </div>
+            <button class="btn-primary vendor-verify-btn w-full" onclick="verifyAndLogin('vendor','login')">
+              <i class="fa fa-right-to-bracket"></i> Verify &amp; Login
+            </button>
+          </div>
+
+          <p class="auth-switch-hint">New vendor? <a href="#" onclick="switchAuthTab('register')">Register your business</a></p>
+        </div>
+
+        <!-- ═══════════════════════════════════
+             VENDOR REGISTER
+        ════════════════════════════════════ -->
+        <div id="form-vendor-register" style="display:none">
+          <div class="form-section-title vendor-title"><i class="fa fa-building"></i> Vendor Registration</div>
+
+          <div class="vendor-reg-notice">
+            <i class="fa fa-info-circle"></i>
+            Fill in your business details completely. Our team will verify and list your business within 24 hours.
+          </div>
+
+          <div class="form-section-group">
+            <div class="form-section-label">Personal Details</div>
+            <div class="form-grid">
+              <div class="form-group span-2">
+                <label>Full Name *</label>
+                <input type="text" id="vRegName" placeholder="Ramesh Sharma">
+              </div>
+              <div class="form-group span-2">
+                <label>Contact Number *</label>
+                <div class="phone-input">
+                  <span>+91</span>
+                  <input type="tel" id="vRegPhone" placeholder="9876543210" maxlength="10">
+                </div>
+              </div>
+              <div class="form-group span-2">
+                <label>Email Address * <small style="color:#999;font-weight:400">(OTP will be sent here)</small></label>
+                <input type="email" id="vRegEmail" placeholder="shop@email.com">
+              </div>
+              <div class="form-group span-2">
+                <label>Address *</label>
+                <input type="text" id="vRegAddress" placeholder="Shop No., Street, Area">
+              </div>
+              <div class="form-group">
+                <label>City *</label>
+                <input type="text" id="vRegCity" placeholder="Mumbai" list="citySuggestionsV">
+                <datalist id="citySuggestionsV">
+                  <option value="Mumbai"><option value="Delhi"><option value="Bangalore">
+                  <option value="Pune"><option value="Chennai"><option value="Hyderabad">
+                  <option value="Ahmedabad"><option value="Kolkata"><option value="Nagpur">
+                  <option value="Jaipur"><option value="Surat"><option value="Lucknow">
+                </datalist>
+              </div>
+              <div class="form-group">
+                <label>State *</label>
+                <input type="text" id="vRegState" placeholder="Maharashtra">
+              </div>
+              <div class="form-group">
+                <label>Pin Code *</label>
+                <input type="text" id="vRegPin" placeholder="400001" maxlength="6">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section-group">
+            <div class="form-section-label">Business Details</div>
+            <div class="form-grid">
+              <div class="form-group span-2">
+                <label>Name of Shop / Business *</label>
+                <input type="text" id="vRegShop" placeholder="Sharma Hardware &amp; Locks">
+              </div>
+              <div class="form-group span-2">
+                <label>Business Category *</label>
+                <select id="vRegCategory">
+                  <option value="">— Select Category —</option>
+                  <option value="hardware">Hardware (Locks, Curtain Rods, Door Handles)</option>
+                  <option value="tiles">Tiles &amp; Marble (Granite, Vitrified, Designer)</option>
+                  <option value="painter">Painter (Interior, Exterior, Texture, Waterproofing)</option>
+                  <option value="decor">Home Decor (Curtains, Carpets, Bedsheets)</option>
+                </select>
+              </div>
+              <div class="form-group span-2">
+                <label>Business Listing / Description *</label>
+                <textarea id="vRegListing" rows="4" placeholder="Tell customers everything about your business — what products/services you offer, brands you carry, years of experience, specializations, service area, minimum order, installation support, etc."></textarea>
+                <small style="color:#888;font-size:11px">Be detailed — a good listing gets more customer inquiries</small>
+              </div>
+              <div class="form-group span-2">
+                <label>GST Registration Number *</label>
+                <input type="text" id="vRegGST" placeholder="22AAAAA0000A1Z5" maxlength="15" style="text-transform:uppercase" oninput="this.value=this.value.toUpperCase()">
+                <small style="color:#888;font-size:11px">15-character GST number — required for business verification</small>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn-otp vendor-otp-btn" onclick="sendOTP('vendor','register')">
+            <i class="fa fa-paper-plane"></i> Send OTP to Email &amp; Submit
+          </button>
+
+          <div id="vRegOTPBox" class="otp-box" style="display:none">
+            <div class="form-group">
+              <label>Enter 6-digit OTP sent to your email</label>
+              <div class="otp-inputs" id="vRegOTPInputs">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,0,'vRegOTPInputs')">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,1,'vRegOTPInputs')">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,2,'vRegOTPInputs')">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,3,'vRegOTPInputs')">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,4,'vRegOTPInputs')">
+                <input type="text" class="otp-digit" maxlength="1" oninput="otpAutoTab(this,5,'vRegOTPInputs')">
+              </div>
+            </div>
+            <button class="btn-primary vendor-verify-btn w-full" onclick="verifyAndLogin('vendor','register')">
+              <i class="fa fa-building-circle-check"></i> Verify &amp; Register Business
+            </button>
+          </div>
+
+          <p class="auth-switch-hint">Already registered? <a href="#" onclick="switchAuthTab('login')">Login here</a></p>
+        </div>
+
+      </div><!-- /auth-card -->
+    </div><!-- /auth-right -->
+  </div><!-- /auth-page -->
+</div>
+
+<!-- ============ DEALS PAGE ============ -->
+<div id="page-deals" class="page">
+  <div class="container" style="padding-top:100px">
+    <div class="section-header">
+      <h2>My Deals</h2>
+      <p>Track and manage all your deals with vendors</p>
+    </div>
+    <div class="deals-container">
+      <div class="deals-sidebar">
+        <div class="deals-list" id="dealsList"></div>
+      </div>
+      <div class="deals-main">
+        <div class="chat-area" id="chatArea">
+          <div class="chat-empty">
+            <i class="fa fa-handshake"></i>
+            <h3>Select a Deal</h3>
+            <p>Choose a deal from the left to start chatting</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ DASHBOARD PAGE ============ -->
+<div id="page-dashboard" class="page">
+  <div class="container" style="padding-top:100px">
+    <div class="section-header">
+      <h2>My Dashboard</h2>
+    </div>
+    <div id="dashboardContent"></div>
+  </div>
+</div>
+
+<!-- DEAL INQUIRY MODAL -->
+<div class="modal-overlay" id="dealModal" style="display:none">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('dealModal')"><i class="fa fa-times"></i></button>
+    <h3><i class="fa fa-handshake"></i> Start a Deal Inquiry</h3>
+    <div class="form-group">
+      <label>Subject / Title</label>
+      <input type="text" id="dealTitle" placeholder="e.g. Need 500 sqft marble flooring for bedroom">
+    </div>
+    <div class="form-group">
+      <label>Describe your requirement</label>
+      <textarea id="dealDesc" rows="4" placeholder="Describe what you need, quantity, timeline, budget range..."></textarea>
+    </div>
+    <input type="hidden" id="dealVendorId">
+    <input type="hidden" id="dealProductId">
+    <button class="btn-primary w-full" onclick="submitDeal()">Send Inquiry</button>
+  </div>
+</div>
+
+<!-- TOAST NOTIFICATIONS -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- LOADING OVERLAY -->
+<div class="loading-overlay" id="loadingOverlay" style="display:none">
+  <div class="loading-spinner">
+    <div class="spinner-ring"></div>
+    <p>Loading...</p>
+  </div>
+</div>
+
+<script src="/static/js/main.js"></script>
+</body>
+</html>
